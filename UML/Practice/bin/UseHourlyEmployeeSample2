@@ -1,0 +1,25 @@
+// The "UseHourlyEmployeeSample2" class which has you fill in the objects values from keyboard as you create the object..
+public class UseHourlyEmployeeSample2  {
+    public static void main (String [] args)  {
+        HourlyEmployee[] hrEmp = new HourlyEmployee [3];
+        for (int ctr = 0 ; ctr < 3 ; ctr++)   {
+            hrEmp [ctr] = new HourlyEmployee ();
+           
+            hrEmp [ctr].setName(Keyin.inString("Enter an employee name: "));
+            hrEmp [ctr].setEmpNum(Keyin.inInt("Enter an employee number: "));
+            hrEmp [ctr].setHoursWorked(Keyin.inDouble("Enter hours worked: "));
+            hrEmp [ctr].setHourlyRate(Keyin.inDouble("Enter hourly rate: "));
+            hrEmp[ctr].calcPay();
+            System.out.println ("The regular pay for " + hrEmp [ctr].getName () + " is " + hrEmp [ctr].getRegularPay ());
+            System.out.println ("The overtime pay for " + hrEmp [ctr].getName () + " is " + hrEmp [ctr].getOvertimePay ());
+        }
+    } // main method
+    
+    
+   // public void twenty (){
+	//	for (HourlyEmployee  e : hrEmp){
+	//		if(e.hoursWorked >=20)
+	//			System.out.println ("Hours worked: " + e.hoursWorked);
+ //	}// end twenty
+
+} // UseHourlyEmployeeSample2 class

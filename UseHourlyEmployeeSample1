@@ -1,0 +1,8 @@
+//HourlySample 1 - attempts to use a constructor to build the object
+public class UseHourlyEmployeeSample1  {
+    public static void main (String[] args)    {
+        HourlyEmployee hrEmp=new HourlyEmployee("Rinaldi",123,10.50,45);
+        System.out.println("The regular pay for "+hrEmp.getName()+" is "+hrEmp.getRegularPay());
+        System.out.println("The overtime pay for "+hrEmp.getName()+" is "+hrEmp.getOvertimePay());
+    } // main method
+ } // UseHourlyEmployeeSample1 class
