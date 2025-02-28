@@ -1,10 +1,11 @@
 public class Reservation {
-    public int AmountOfTravellers;
-
-    public void setAmountOfTravelers(int AmountOfTravellers){
-      
+    private int AmountOfTravellers;
+    //Setter
+    public void setAmountOfTravelers(int newAmountOfTravellers){
+        this.AmountOfTravellers = newAmountOfTravellers;
     }
-    public void getAmountOfTravellers(){
-        
+    //Getter
+    public int getAmountOfTravellers(){
+        return AmountOfTravellers;
     }
 }

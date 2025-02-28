@@ -1,24 +1,35 @@
 public class Hotel {
-    public int ratingWanted;
-    public int amountRooms;
-    public String Date;
+    private int RatingWanted;
+    private int AmountRooms;
+    private String Date;
 
-    public void setRatingWanted(int ratingWanted){
-
+    //Rating setter
+    public void setRatingWanted(int newRatingWanted){
+        this.RatingWanted = newRatingWanted;
     }
-    public void setAmountRooms(int amountRooms){
 
+    //Room amount setter
+    public void setAmountRooms(int newAmountRooms){
+        this.AmountRooms = newAmountRooms;
     }
-    public void setDate(String Date){
 
+    //Date setter
+    public void setDate(String newDate){
+        this.Date = newDate;
     }
-    public void getRating(){
 
+    //Rating getter
+    public int getRating(){
+        return RatingWanted;
     }
-    public void getAmountRooms(){
 
+    //room amount getter
+    public int getAmountRooms(){
+        return AmountRooms;
     }
-    public void getDate(){
-        
+
+    //Date getter
+    public String getDate(){
+        return Date;
     }
 }

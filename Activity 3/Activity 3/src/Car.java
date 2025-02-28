@@ -1,11 +1,14 @@
 public class Car {
-    public String Type;
-    public long LicenseNumber;
+    private String Type;
+    private long LicenseNumber;
     
-    public void getType(){
-
+    //Type getter
+    public String getType(){
+        return Type;
     }
-    public void getLicenseNumber(){
-        
+
+    //LicenseNumber getter
+    public long getLicenseNumber(){
+        return LicenseNumber;
     }
 }

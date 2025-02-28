@@ -1,10 +1,18 @@
 public class PrimaryClient {
-    public String Name;
+    private String name;
 
-    public void setName(String Name) {
-       
+    public PrimaryClient (String name){
+        this.name = name;
     }
-    public void getName() {
-        
+    public PrimaryClient() {
+        name = "";
+    }
+    //Setter
+    public void setName(String name) {
+       name = name;
+    }
+    //Getter
+    public String getName() {
+        return name;
     }
 }

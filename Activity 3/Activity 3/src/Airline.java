@@ -1,31 +1,46 @@
 public class Airline {
-    public String airline;
-    public int FlightNumber ;
-    public String Date;
-    public int Time;
+    private String Airline;
+    private int FlightNumber ;
+    private String Date;
+    private int Time;
 
-    public void setAirline(String airline){
-
+    //airline setter
+    public void setAirline(String newAirline){
+        this.Airline = newAirline;
     }
-    public void setFlightNumber(int FlightNumber){
 
+    //flight num setter
+    public void setFlightNumber(int newFlightNumber){
+        this.FlightNumber = newFlightNumber;
     }
-    public void setDate(String Date){
 
+    //date setter
+    public void setDate(String newDate){
+        this.Date = newDate;
     }
-    public void setTime(int Time){
 
+    //time setter
+    public void setTime(int newTime){
+        this.Time = newTime;
     }
-    public void getAirline(){
 
+    //Airline getter
+    public String getAirline(){
+        return Airline;
     }
-    public void getFlightNumber(){
 
+    //Flight num getter
+    public int getFlightNumber(){
+        return FlightNumber;
     }
-    public void getDate(){
 
+    //Date getter
+    public String getDate(){
+        return Date;
     }
-    public void getTime(){
-        
+
+    //Time getter
+    public int getTime(){
+        return Time;
     }
 }
