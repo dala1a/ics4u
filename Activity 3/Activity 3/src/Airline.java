@@ -1,8 +1,22 @@
-public class Airline {
+public class Airline extends Reservation {
     private String Airline;
     private int FlightNumber ;
     private String Date;
     private int Time;
+
+    public Airline(String Airline, int FlightNumber, String Date, int Time){
+        this.Airline = Airline;
+        this.FlightNumber = FlightNumber;
+        this.Date = Date;
+        this.Time = Time;
+    }
+
+    public Airline() {
+        Airline = "";
+        FlightNumber = 0;
+        Date = "";
+        Time = 0;
+    }
 
     //airline setter
     public void setAirline(String newAirline){

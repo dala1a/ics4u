@@ -1,7 +1,19 @@
-public class Hotel {
+public class Hotel extends Reservation {
     private int RatingWanted;
     private int AmountRooms;
     private String Date;
+
+    public Hotel(int RatingWanted, int AmountRooms, String Date) {
+        this.RatingWanted = RatingWanted;
+        this.AmountRooms = AmountRooms;
+        this.Date = Date;
+    }
+
+    public Hotel() {
+        RatingWanted = 0;
+        AmountRooms = 0;
+        Date = "";
+    }
 
     //Rating setter
     public void setRatingWanted(int newRatingWanted){

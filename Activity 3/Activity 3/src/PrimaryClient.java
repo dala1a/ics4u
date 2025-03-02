@@ -9,7 +9,7 @@ public class PrimaryClient {
     }
     //Setter
     public void setName(String name) {
-       name = name;
+       this.name = name;
     }
     //Getter
     public String getName() {
