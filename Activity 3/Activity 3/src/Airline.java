@@ -53,6 +53,8 @@ public class Airline extends Reservation {
         return Date;
     }
 
+
+    
     //Time getter
     public int getTime(){
         return Time;

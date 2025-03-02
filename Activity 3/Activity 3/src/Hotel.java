@@ -31,7 +31,7 @@ public class Hotel extends Reservation {
     }
 
     //Rating getter
-    public int getRating(){
+    public int getRatingWanted(){
         return RatingWanted;
     }
 
