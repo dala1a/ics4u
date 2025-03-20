@@ -170,32 +170,35 @@ public class DDCharacter {
         return total - smallestRoll; 
     }
 
-    public void levelUp(RandomAccessFile raf, int recordNum) throws IOException { 
-        switch (playerClass) {
-            case "Warrior":
-                hitPoints += getDice(10);
-                break;
-            case "Cleric": 
-                hitPoints += getDice(8);
-                break; 
-            case "Bard", "Ranger", "Rogue": 
-                hitPoints += getDice(6); 
-                break; 
-            case "Mage": 
-                hitPoints += getDice(4); 
-                break; 
-            default:
-                System.out.println("No Hitpoints Added");
-                break;
+    public void levelUp(RandomAccessFile raf, int recordNum, int newLevel) throws IOException { 
+        setLevel(newLevel);
+        hitPoints = 0;
+        for(int i = 0; i < newLevel; i++) { 
+            switch (playerClass) {
+                case "Warrior":
+                    hitPoints += getDice(10);
+                    break;
+                case "Cleric": 
+                    hitPoints += getDice(8);
+                    break; 
+                case "Bard", "Ranger", "Rogue": 
+                    hitPoints += getDice(6); 
+                    break; 
+                case "Mage": 
+                    hitPoints += getDice(4); 
+                    break; 
+                default:
+                    System.out.println("No Hitpoints Added");
+                    break;
+            }
         }
+       
         updateOrCreateRaf(raf, recordNum);
     }
 
     public void changeClass(String newPlayerClass, RandomAccessFile raf, int recordNum) throws IOException { 
         setPlayerClass(newPlayerClass); 
-        for(int i = 0; i < level; i++) { 
-            levelUp(raf, recordNum);
-        }
+        levelUp(raf, recordNum, level);
 
         updateOrCreateRaf(raf, recordNum);
     }
@@ -268,7 +271,6 @@ public class DDCharacter {
                 break;
         }
 
-        updateOrCreateRaf(raf, recordNum);
     }
 
     public void updateOrCreateRaf(RandomAccessFile raf, int recordNum) throws IOException { 
@@ -484,39 +486,7 @@ public class DDCharacter {
             dexterity = Dex;
             charisma = Charis;
         }  
-    }
-
-    public void searchCharacter(RandomAccessFile raf, String name, int recNum) throws IOException {
-        raf.seek (recNum * recLen);	 
-        String fake = ""; 
-
-        for (int i = 0 ; i < 20 ; i++)
-            fake = fake + raf.readChar();
-        characterName = fake.trim();
-        fake = "";
-
-        //  read the long and doubles from the file
-        level = raf.readInt();
-        hitPoints = raf.readInt();
-        strength = raf.readInt();
-        constitution = raf.readInt();
-        intelligence = raf.readInt();
-        wisdom = raf.readInt();
-        dexterity = raf.readInt();
-        charisma = raf.readInt();
-            
-        if(characterName.equalsIgnoreCase(name)) {
-            System.out.println();
-            System.out.println("=============================================================================================================================================");
-            System.out.format("%-25s %-15s %-15s %-10s %-10s %-10s %-10s %-10s %-10s %-10s %-10s", "Name", "Race", "Class", "Lvl", "HP", "Str", "Const", "Int", "Wisdom", "Dex", "Chr");
-            System.out.println();
-            System.out.println();
-            System.out.format("%-25s %-15s %-15s %-10s %-10s %-10s %-10s %-10s %-10s %-10s %-10s", getCharacterName(), getRace(), getPlayerClass(), getLevel(), getHitPoints(), getStrength(), getConstitution(), getIntelligence(), getWisdom(), getDexterity(), getCharisma());
-            System.out.println();
-            System.out.println("=============================================================================================================================================");
-            System.out.println();
-        }
-  }   	
+    } 	
 
     private static final String capitalize(String str) {  
         if (str == null || str.length() == 0) return str;  
