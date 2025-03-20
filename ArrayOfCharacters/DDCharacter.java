@@ -270,48 +270,66 @@ public class DDCharacter {
 
         updateOrCreateRaf(raf, recordNum);
     }
-    
-    public void padAndWriteString(RandomAccessFile raf, int recordNum, int maxLen, String item) throws IOException { 
-        raf.seek(recordNum * recLen);
-
-        int itemLen = item.length();
-        int padLen = 0;
-
-        if(itemLen > maxLen) { 
-            itemLen = maxLen; 
-        } else { 
-            padLen = maxLen - itemLen; 
-        }
-
-        for(int i = 0; i < item.length(); i++) { 
-            raf.writeChar(item.charAt(i));
-        }
-
-        if(padLen > 0) { 
-            for(int i = 0; i < padLen; i++) { 
-                raf.writeChar(' ');
-            }
-        }
-    }
 
     public void updateOrCreateRaf(RandomAccessFile raf, int recordNum) throws IOException { 
-        padAndWriteString(raf, recordNum, 20, characterName);
-        padAndWriteString(raf, recordNum, 10, race);
-        padAndWriteString(raf, recordNum, 10, playerClass);
-        raf.seek(recordNum * recLen + 40);
-
-        raf.writeInt(level);
-        raf.writeInt(hitPoints);
-        raf.writeInt(strength);
-        raf.writeInt(constitution);
-        raf.writeInt(intelligence);
-        raf.writeInt(wisdom);
-        raf.writeInt(dexterity);
-        raf.writeInt(charisma);
+        raf.seek (recordNum * recLen); // move pointer to position in file
+        int nameLen = characterName.length();	  // determine if there are more than 20 characters
+		int padLen = 0;					  // calculate the number of blanks that need to be 
+        if (nameLen > 20)		          //  added to maintain a length of 20
+            nameLen = 20;
+        else
+            padLen = 20 - nameLen;
+        for (int i = 0 ; i < characterName.length () ; i++)	// write the name
+            raf.writeChar (characterName.charAt (i));
+        if (padLen > 0)	{					// write the extra blanks
+            for (int i = 0 ; i < padLen ; i++)
+                raf.writeChar (' ');
+        }
+        
+        
+        // repeat for Race
+        // ---------------------------------------------------
+        nameLen = race.length ();
+		padLen = 0;						
+        if (nameLen > 10)					
+            nameLen = 10;
+        else
+            padLen = 10 - nameLen;
+        for (int i = 0 ; i < race.length () ; i++)	
+            raf.writeChar(race.charAt (i));
+        if (padLen > 0)	{				
+            for (int i = 0 ; i < padLen ; i++)
+                raf.writeChar(' ');
+        }
+        
+        // repeat for Class
+        // ---------------------------------------------------
+        nameLen = playerClass.length ();
+		padLen = 0;						
+        if (nameLen > 10)					
+            nameLen = 10;
+        else
+            padLen = 10 - nameLen;
+        for (int i = 0 ; i < playerClass.length() ; i++)	
+            raf.writeChar(playerClass.charAt(i));
+        if (padLen > 0)	{				
+            for (int i = 0 ; i < padLen ; i++)
+                raf.writeChar(' ');
+        }
+        // write the int and double to the file
+        raf.writeInt (level);
+        raf.writeInt (hitPoints);
+        raf.writeInt (strength);
+        raf.writeInt (constitution);
+        raf.writeInt (intelligence);
+        raf.writeInt (wisdom);
+        raf.writeInt (dexterity);
+        raf.writeInt (charisma);
     }
 
     public void readRec(RandomAccessFile raf, int recNum) throws IOException { 
         raf.seek(recNum * recLen);
+
         String temp = "";
         for (int i = 0 ; i < 20 ; i++)
             temp = temp + raf.readChar();
@@ -326,14 +344,14 @@ public class DDCharacter {
         playerClass = temp.trim();
         
         // read the long and doubles from the file
-        level = raf.readInt();
-        hitPoints = raf.readInt();
-        strength = raf.readInt();
-        constitution = raf.readInt();
-        intelligence = raf.readInt();
-        wisdom = raf.readInt();
-        dexterity = raf.readInt();
-        charisma = raf.readInt();
+        setLevel(raf.readInt());
+        setHitPoints(raf.readInt());
+        setStrength(raf.readInt());
+        setConstitution(raf.readInt());
+        setIntelligence(raf.readInt());
+        setWisdom(raf.readInt());
+        setDexterity(raf.readInt()); 
+        setCharisma(raf.readInt()); 
     }
 
     public void createCharacter(Scanner sc, String race, String playerClass, String name, RandomAccessFile raf, int recordNum) throws IOException { 
@@ -341,10 +359,50 @@ public class DDCharacter {
         changeClass(playerClass, raf, recordNum);
         changeRace(race, raf, recordNum);
 
-        padAndWriteString(raf, recordNum, 20, characterName);
-        padAndWriteString(raf, recordNum, 10, race);
-        padAndWriteString(raf, recordNum, 10, playerClass);
-        raf.seek(recordNum * recLen + 40);
+        raf.seek (recordNum * recLen); // move pointer to position in file
+        int nameLen = characterName.length();	  // determine if there are more than 20 characters
+		int padLen = 0;					  // calculate the number of blanks that need to be 
+        if (nameLen > 20)		          //  added to maintain a length of 20
+            nameLen = 20;
+        else
+            padLen = 20 - nameLen;
+        for (int i = 0 ; i < characterName.length () ; i++)	// write the name
+            raf.writeChar (characterName.charAt (i));
+        if (padLen > 0)	{					// write the extra blanks
+            for (int i = 0 ; i < padLen ; i++)
+                raf.writeChar (' ');
+        }
+        
+        
+        // repeat for Race
+        // ---------------------------------------------------
+        nameLen = race.length ();
+		padLen = 0;						
+        if (nameLen > 10)					
+            nameLen = 10;
+        else
+            padLen = 10 - nameLen;
+        for (int i = 0 ; i < race.length () ; i++)	
+            raf.writeChar(race.charAt (i));
+        if (padLen > 0)	{				
+            for (int i = 0 ; i < padLen ; i++)
+                raf.writeChar(' ');
+        }
+        
+        // repeat for Class
+        // ---------------------------------------------------
+        nameLen = playerClass.length ();
+		padLen = 0;						
+        if (nameLen > 10)					
+            nameLen = 10;
+        else
+            padLen = 10 - nameLen;
+        for (int i = 0 ; i < playerClass.length() ; i++)	
+            raf.writeChar(playerClass.charAt(i));
+        if (padLen > 0)	{				
+            for (int i = 0 ; i < padLen ; i++)
+                raf.writeChar(' ');
+        }
 
         setStrength(randomStatGen());
         setConstitution(randomStatGen());

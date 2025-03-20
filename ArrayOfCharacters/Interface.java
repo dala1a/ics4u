@@ -76,7 +76,6 @@ public class Interface {
     public static int readNewBinFile(String filename, DDCharacter inCharacter[]) throws IOException {
 	    RandomAccessFile raf = new RandomAccessFile(filename, "r");
 	    int numrecs = (int) raf.length() / 112;
-
         System.out.println(numrecs);
 
 	    System.out.println();
@@ -97,7 +96,25 @@ public class Interface {
 	    System.out.println();
 	    System.out.println("--- End Of File ---");
 	    return numrecs;
-	  } // end writeNewBinFile
+    } // end writeNewBinFile
+
+    public static void deleteCharacter(DDCharacter characters[], String filename, String charName) throws IOException { 
+        RandomAccessFile raf = new RandomAccessFile(filename, "rw");
+	    int numrecs = (int) raf.length() / 112;
+
+	    for (int i = 0; i < numrecs; i++) {
+		   characters[i].deleteCharacter(raf, charName, i);    
+           characters[i].updateOrCreateRaf(raf, i); 
+	    }
+	    System.out.println();
+	    System.out.println("=============================================================================================================================================");
+	    System.out.println("CHARACTER HAS BEEN REMOVED!");
+	    System.out.println("=============================================================================================================================================");
+	    System.out.println();
+	    raf.close();
+
+    }
+    
 
     public static void main(String[] args) throws IOException {
         Scanner sc = new Scanner(System.in);
@@ -162,7 +179,6 @@ public class Interface {
                     System.out.println("Please enter a file name to read");
                     textFileName = sc.nextLine();
                     recs = readASCII(textFileName, character);
-                    readASCII(textFileName, character);
                     System.out.println("Your File Has Been Read!");
                     System.out.println();
                 break;
@@ -188,7 +204,60 @@ public class Interface {
                     printOutData(binaryFile, character);
                 break; 
 
-                // case 5: 1
+                case 5: 
+                    String race = "s"; 
+                    String playerClass = ""; 
+
+                    System.out.println("Please enter your character name: ");
+                    String characterName = sc.nextLine(); 
+                    System.out.println();
+                    boolean raceDone = false;
+                    boolean classDone = false; 
+
+                    while(!raceDone) { 
+                        System.out.println("Human:		No Stat Adjustments (Hard Mode)");
+                        System.out.println("Halfling:	Dex + 2, Con + 1");
+                        System.out.println("Elf:		Dex + 3, Con ‐ 2");
+                        System.out.println("Dwarf:		Con + 3");
+                        System.out.println("Orc:		Str + 3, Con + 1");
+                        System.out.println("Gnome:		Int + 2, Wis +1, Str ‐3");
+                        System.out.print("Please Pick a Race: ");
+                        race = sc.nextLine(); 
+                        System.out.println();
+                        if (race.equalsIgnoreCase("human") || race.equalsIgnoreCase("halfling") || race.equalsIgnoreCase("elf") || race.equalsIgnoreCase("dwarf") || race.equalsIgnoreCase("orc") || race.equalsIgnoreCase("gnome")) {
+                            raceDone = true;
+                          } else {
+                            System.out.println("ERROR!!! The Race You Picked Does Not Exist Please Pick Another.");
+                          }
+                    }
+
+                    while(!classDone) { 
+                        System.out.println("Warrior");
+                        System.out.println("Cleric");
+                        System.out.println("Bard");
+                        System.out.println("Ranger");
+                        System.out.println("Rogue");
+                        System.out.println("Mage");
+                        System.out.print("Please Pick a Class: ");
+                        playerClass = sc.nextLine(); 
+                        System.out.println();
+                        if (playerClass.equalsIgnoreCase("warrior") || playerClass.equalsIgnoreCase("cleric") || playerClass.equalsIgnoreCase("bard") || playerClass.equalsIgnoreCase("ranger") || playerClass.equalsIgnoreCase("rogue") || playerClass.equalsIgnoreCase("mage")) {
+                            classDone = true;
+                          } else {
+                            System.out.println("ERROR!!! The Class You Picked Does Not Exist Please Pick Another.");
+                          }
+                    }
+
+                    addNewCharacter(sc, race, playerClass, characterName, binaryFile, character, recs);
+                break;
+
+                case 6: 
+                    System.out.println("Please enter the character you would like to delete: ");
+                    String charName = sc.nextLine(); 
+
+                break; 
+
+
 
             }
         } while (initialInput == true);
