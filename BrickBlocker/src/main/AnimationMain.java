@@ -1,3 +1,4 @@
+package main;
 import hsa2.GraphicsConsole;
 import java.awt.Color;
 import java.awt.Font;
@@ -13,41 +14,62 @@ public class AnimationMain {
     static final int GRWIDTH = 800;
     static final int GRHEIGHT = 600;
     static final Color PADDLECOLOUR = Color.YELLOW;
-    static final int NUMBLOCKS = 5;
+    static final int NUMBLOCKS = 6;
 
     /***** Global (instance) Variables ******/
     private GraphicsConsole gc = new GraphicsConsole(GRWIDTH, GRHEIGHT);
-    private Ball ball = new Ball(GRWIDTH, 200);
+    private Ball ball = new Ball(GRWIDTH,200);
     private Rectangle paddle = new Rectangle(0, 0, 100, 16); // set width and height here
     private Block[] blocks = new Block[NUMBLOCKS]; // this just makes the array, it doesn't create the blocks!
     private int lives;
     private boolean isPlaying = true;
+    private int blockX = 120;
+    private int blockY = 60;
+    private int score = 0;
+    private boolean win = false;
+    private boolean isDone = false;
+    private long messageStartTime = 0; // Track when the message starts displaying
+    private boolean isSuperBall = false;
+
 
     /****** Constructor ********/
     private AnimationMain() {
         initialize();
         // main game loop
         while (gc.getKeyCode() != 'Q' && isPlaying) { // press q to quit
+            if (gc.getKeyCode() == '1' && isSuperBall == false) {
+                isSuperBall = true; // Activate Super Ball mode
+                ball.width -= 10; // Make the ball smaller
+                ball.height -= 10;
+                ball.xspeed += 4; // Increase velocity
+                ball.yspeed += 4;
+            }
             movePaddle_mouse();
             movePaddle_keys();
             moveBall();
             drawGraphics();
             gc.sleep(SLEEPTIME);
-            if (lives <= 0)
+            if (lives <= 0) {
+                win = false;
                 isPlaying = false;
-            // check if all of the blocks are gone.
-            boolean win = true;
-            for (int i = 0; i < NUMBLOCKS; i++) {
-                if (blocks[i].isVisible)
-                    win = false;
             }
-            if (win)
-                isPlaying = false;
+            else {
+                win = true;
+                for (int i = 0; i < blocks.length; i++) {
+                    if (blocks[i].isVisible && !blocks[i].isUnbreakable) {
+                        win = false;
+                    }
+                }
+                if (win == true) {
+                    isPlaying = false;
+                }
+            }
         }
-        if (lives > 0)
-            gc.drawString("GAME OVER, You win!", 30, 30);
+
+        if (win == true)
+            gc.drawString("GAME OVER, You win!", GRHEIGHT/2, GRWIDTH/2);
         else
-            gc.drawString("GAME OVER, You lost.", 30, 30);
+            gc.drawString("GAME OVER, You lost.", GRHEIGHT/2, GRWIDTH/2);
     }
 
     /****** Methods for game *******/
@@ -76,15 +98,26 @@ public class AnimationMain {
                         // position and speed.
         // make all blocks. ** I"m only making one row of 6 blocks. You can figure out
         // how to make more.
-        for (int i = 0; i < blocks.length; i++) { // instead of NUMBLOCKS I could use blocks.length
+        for (int i = 0, j = 0; i < blocks.length; i++) { // instead of NUMBLOCKS I could use blocks.length
             blocks[i] = new Block();
-          //  blocks[i].isVisible = true;
-            if (i < 6) {
-                blocks[i].x = 120 * i + 30;
-                blocks[i].y = 60;
-                System.out.println("done");
+            blocks[i].x = blockX * j + 35; 
+            blocks[i].y = blockY;
+            j++;
+            if (j >= 6) {
+                blockY += 50;
+                j = 0;
             }
+          
         }
+
+        // Add an unbreakable block
+    Block unbreakableBlock = new Block();
+    int random = (int) (Math.random() * NUMBLOCKS-1);
+    unbreakableBlock.x = blocks[random].x;
+    unbreakableBlock.y = blocks[random].y;
+    unbreakableBlock.isUnbreakable = true;
+    unbreakableBlock.colour = Color.GRAY; // Different color for unbreakable blocks
+    blocks[random] = unbreakableBlock; // Replace the first block with the unbreakable block
         gc.sleep(500); // allow a bit of time for the user to move the mouse to the correct position in
                        // the game screen
     }
@@ -97,6 +130,10 @@ public class AnimationMain {
     private void moveBall() {
         ball.x += ball.xspeed;
         ball.y += ball.yspeed;
+         // Change ball color dynamically if Super Ball mode is active
+    if (isSuperBall) {
+        ball.colour = new Color(Color.HSBtoRGB((float) Math.random(), 1.0f, 1.0f));
+    }
         // bounce off bottom of screen
         if ((ball.y + ball.diameter) > gc.getDrawHeight()) {
             ball.yspeed *= -1;
@@ -126,9 +163,13 @@ public class AnimationMain {
         // see if ball hits block
         for (int i = 0; i < blocks.length; i++) {
             if (ball.intersects(blocks[i])) {
+                if (!blocks[i].isUnbreakable) { // Only remove breakable blocks
                 blocks[i].isVisible = false; // don't bother drawing it on the screen
                 blocks[i].y = -100; // move it off the screen
+                score++;    
+            }
                 ball.yspeed *= -1;
+                
             }
         }
     }
@@ -155,8 +196,6 @@ public class AnimationMain {
         // clear screen and redraw everything
         synchronized (gc) {
             gc.clear();
-            gc.setColor(Color.WHITE);
-            gc.drawString("LIVES = " + lives, 30, 70);
             gc.setColor(ball.colour);
             gc.fillOval(ball.x, ball.y, ball.width, ball.height);
             // DEBUG
@@ -166,7 +205,33 @@ public class AnimationMain {
             gc.setColor(PADDLECOLOUR);
             gc.fillRoundRect(paddle.x, paddle.y, paddle.width, paddle.height,
                     10, 10);
+            for (int i = 0; i < blocks.length; i++) {
+                if (blocks[i].isVisible) {
+                    gc.setColor(blocks[i].colour);
+                    gc.fillRect(blocks[i].x, blocks[i].y, blocks[i].width, blocks[i].height);
+                }
+            }
+            gc.setColor(Color.WHITE);
+            gc.drawString("LIVES: " + lives, 30, 50);
+            gc.drawString("SCORE: " + score, GRWIDTH - 200, 50);
+           // Display the message for 2 seconds
+        if (score >= NUMBLOCKS/2 && !isDone) {
+            gc.drawString("Make this HARDER!", GRWIDTH / 2 - 50, GRHEIGHT / 2 - 50);
+            if (messageStartTime == 0) {
+                messageStartTime = System.currentTimeMillis(); // Record the start time
+            }
         }
+
+        // Check if 2 seconds have passed since the message started
+        if (messageStartTime > 0 && System.currentTimeMillis() - messageStartTime > 2000) {
+            isDone = true; // Mark the message as done
+            ball.xspeed += 2;
+            ball.yspeed += 2;
+            paddle.width -= 30;
+            messageStartTime = 0; // Reset the timer
+        }
+
+    }
     }
 }
 

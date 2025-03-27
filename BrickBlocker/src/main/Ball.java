@@ -1,3 +1,4 @@
+package main;
 import java.awt.Color;
 import java.awt.Rectangle;
 
@@ -10,7 +11,7 @@ public class Ball extends Rectangle {
     // int x,y,width,height; <<< This line MUST now be deleted.
     // Rectangles come with their own copy of these 4 variables, so don't recreate
     // them.
-    private int n1, n2;
+    private int n1;
 
     /**
      * The ball will be placed randomly within the rectangle specified by the
@@ -30,12 +31,12 @@ public class Ball extends Rectangle {
         // colour
         // colour = new Color(Color.HSBtoRGB((float)Math.random(), 1.0f, 1.0f));
         n1 = maxX;
-        n2 = maxY;
+        //n2 = maxY;
     }
 
     void resetXY() {
         x = (int) (Math.random() * (n1 - 150)) + 75;
-        y = (int) (Math.random() * (n2 - 150)) + 75;
+        y = 300;
         xspeed = yspeed = 3;
         width = height = diameter;
     }
