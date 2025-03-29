@@ -1,4 +1,6 @@
 package main;
+
+
 import java.awt.Color;
 import java.awt.Rectangle;
 //this class is for the blocks that the ball will hit and destroy.
