@@ -21,20 +21,8 @@ public class DDCharacter {
     private int dexterity; // 4 Bytes
     private int charisma; // 4 Bytes
     private final long recLen = 112; // Length of each record
-
-    /*
-     * Method Name: DDCharacter
-     * Author: Yunseo Jeon
-     * Creation Date: Mar 3 2025
-     * Description: Peeks at the size of the array
-     * @Parameters: A integer array
-     * @Return Value: Returns the number of lines in a file
-     * Data Type: integer ARRAY
-     * Dependencies: n/a
-     * Throws/Exceptions: File IO errors
-     */
-
-     
+    
+    // Constructor
     public DDCharacter(String characterName, String race, String playerClass, int level, int hitPOints, int strength,
             int constitution, int intelligence, int wisdom, int dexterity, int charisma) {
         this.characterName = characterName;
@@ -50,6 +38,7 @@ public class DDCharacter {
         this.charisma = charisma;
     }
 
+    // Default Constructor
     public DDCharacter() {
         characterName = "";
         race = "";
@@ -64,100 +53,248 @@ public class DDCharacter {
         charisma = 0;
     }
 
+    /**
+     * A setter for the character's characterName
+     * @author Yunseo Jeon
+     * @since Mar 3 2025
+     * @param characterName A setter for the character name. 
+     */
     public void setCharacterName(String characterName) {
         this.characterName = characterName;
     }
-
+    
+    /**
+     * A setter for the character's race
+     * @author Yunseo Jeon
+     * @since Mar 3 2025
+     * @param race A setter for the character race. 
+     */
     public void setRace(String race) {
         this.race = race;
     }
 
+    /**
+     * A setter for the character's class
+     * @author Yunseo Jeon
+     * @since Mar 3 2025
+     * @param playerClass A setter for the character class. 
+     */
     public void setClass(String playerClass) {
         this.playerClass = playerClass;
     }
 
+    /**
+     * A setter for the character's level
+     * @author Yunseo Jeon
+     * @since Mar 3 2025
+     * @param level A setter for the character's level. 
+     */
     public void setLevel(int level) {
         this.level = level;
     }
 
+    /**
+     * A setter for the character's hitPoints stat
+     * @author Yunseo Jeon
+     * @since Mar 3 2025
+     * @param newHitPoints A setter for the character's hitpoints. 
+     */
     public void setHitPoints(int newHitPoints) {
         this.hitPoints = newHitPoints;
     }
 
+    /**
+     * A setter for the character's strength stat
+     * @author Yunseo Jeon
+     * @since Mar 3 2025
+     * @param strength A setter for the character's strength. 
+     */
     public void setStrength(int strength) {
         this.strength = strength;
     }
 
+    /**
+     * A setter for the character's constitution stat
+     * @author Yunseo Jeon
+     * @since Mar 3 2025
+     * @param constitution A setter for the character's constitution. 
+     */
     public void setConstitution(int constitution) {
         this.constitution = constitution;
     }
 
+    /**
+     * A setter for the character's intelligence stat
+     * @author Yunseo Jeon
+     * @since Mar 3 2025
+     * @param intelligence A setter for the character's intelligence. 
+     */
     public void setIntelligence(int intelligence) {
         this.intelligence = intelligence;
     }
 
+    /**
+     * A setter for the character's wisdom stat
+     * @author Yunseo Jeon
+     * @since Mar 3 2025
+     * @param wisdom A setter for the character's wisdom. 
+     */
     public void setWisdom(int wisdom) {
         this.wisdom = wisdom;
     }
 
+    /**
+     * A setter for the character's dexterity stat
+     * @author Yunseo Jeon
+     * @since Mar 3 2025
+     * @param dexterity A setter for the character's dex. 
+     */
     public void setDexterity(int dexterity) {
         this.dexterity = dexterity;
     }
 
+    /**
+     * A setter for the character's charisma stat
+     * @author Yunseo Jeon
+     * @since Mar 3 2025
+     * @param charisma A setter for the character's charisma. 
+     */
     public void setRizz(int charisma) {
         this.charisma = charisma;
     }
 
+    /**
+     * A getter for the character's name
+     * @author Yunseo Jeon
+     * @since Mar 3 2025
+     * @return The Character name
+     */
     public String getCharacterName() {
         return this.characterName;
     }
 
+    /**
+     * A getter for the character's race
+     * @author Yunseo Jeon
+     * @since Mar 3 2025
+     * @return The Character race
+     */
     public String getRace() {
         return this.race;
     }
 
+    /**
+     * A getter for the character's class
+     * @author Yunseo Jeon
+     * @since Mar 3 2025
+     * @return The Character Class
+     */
     public String getPlayerClass() {
         return this.playerClass;
     }
 
+    /**
+     * A getter for the character's level
+     * @author Yunseo Jeon
+     * @since Mar 3 2025
+     * @return The Character's level
+     */
     public int getLevel() {
         return this.level;
     }
 
+    /**
+     * A getter for the character's hitPoints stat
+     * @author Yunseo Jeon
+     * @since Mar 3 2025
+     * @return The Character's hitpoints 
+     */
     public int getHitPoints() {
         return this.hitPoints;
     }
 
+    /**
+     * A getter for the character's strength stat
+     * @author Yunseo Jeon
+     * @since Mar 3 2025
+     * @return The Character's strength
+     */
     public int getStrength() {
         return this.strength;
     }
 
+    /**
+     * A getter for the character's constitution stat
+     * @author Yunseo Jeon
+     * @since Mar 3 2025
+     * @return The Character's constitution
+     */
     public int getConstitution() {
         return this.constitution;
     }
 
+    /**
+     * A getter for the character's intelligence stat
+     * @author Yunseo Jeon
+     * @since Mar 3 2025
+     * @return The Character's intelligence
+     */
     public int getIntelligence() {
         return this.intelligence;
     }
 
+    /**
+     * A getter for the character's wisdom stat
+     * @author Yunseo Jeon
+     * @since Mar 3 2025
+     * @return The Character's wisdom
+     */
     public int getWisdom() {
         return this.wisdom;
     }
 
+    /**
+     * A getter for the character's dexterity stat
+     * @author Yunseo Jeon
+     * @since Mar 3 2025
+     * @return The Character's dexterity
+     */
     public int getDexterity() {
         return this.dexterity;
     }
 
+    /**
+     * A getter for the character's charisma stat
+     * @author Yunseo Jeon
+     * @since Mar 3 2025
+     * @return The Character's charisma
+     */
     public int getCharisma() {
         return this.charisma;
     }
 
+
+    /**
+     * Generates a random numbers between 1 and the max provided by the user. 
+     * @author Yunseo Jeon
+     * @since Mar 3 2025
+     * @param max The number of sides the dice has. 
+     * @return A random number between 1 and the max number of sides inputted. 
+     */
     public int getDiceRoll(int max) {
         Random rand = new Random(); // Create a Random object
         int result = rand.nextInt(max) + 1; // Generate a random number between 1 and max (inclusive)
         return result;
     }
-
+    
+    /**
+     * Create or updates an existing binary file record. Adds padding to string variables and writes it all out to a binary file. 
+     * @author Yunseo Jeon
+     * @since Mar 3 2025
+     * @param raf The binary file being read in. 
+     * @param recNum The record Number to which the pointer should jump to. 
+     * @throws IOException Throws an Exception if the file could not be read or found. 
+     */
     public void updateOrCreateRAF(RandomAccessFile raf, int recNum) throws IOException {
         raf.seek(recNum * recLen); // move pointer to position in file
         int nameLength = characterName.length(); // determine if there are more than 20 characters
@@ -231,6 +368,14 @@ public class DDCharacter {
         raf.writeInt (charisma);
     }
 
+    /**
+     * Reads a record from a binary file and stores all that data. 
+     * @author Yunseo Jeon
+     * @since Mar 3 2025
+     * @param raf The binary file being read in. 
+     * @param recNum The record Number to which the pointer should jump to. 
+     * @throws IOException Throws an Exception if the file could not be read or found. 
+     */
     public void readRec(RandomAccessFile raf, int recNum) throws IOException {
         raf.seek(recNum * recLen);
         String temp = "";
