@@ -1,6 +1,6 @@
 /*
  * @Author : Yunseo Jeon
- * @Last Modified: Mar 3 2025
+ * @Last Modified: Mar 7 2025
  * @Description: All methods regarding characters and their characteristics in D&D
  */
 
@@ -20,7 +20,7 @@ public class DDCharacter {
     private int wisdom; // 4 Bytes
     private int dexterity; // 4 Bytes
     private int charisma; // 4 Bytes
-    private final long recLen = 112; // Length of each record
+    private final long recLen = 112; // Length of all records
     
     // Constructor
     public DDCharacter(String characterName, String race, String playerClass, int level, int hitPOints, int strength,
