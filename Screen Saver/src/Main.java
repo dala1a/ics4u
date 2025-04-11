@@ -301,7 +301,7 @@ public class Main {
     private void moveSnow() { 
         gc.sleep(5);
         gc.setBackgroundColor(new Color(0, 0/2, 0));
-        if(floor.y < 990) {
+        if(floor.y < 950) {
             firstAnimation = false;
             secondAnimation = true; 
         }
