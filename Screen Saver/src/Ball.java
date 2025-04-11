@@ -1,10 +1,4 @@
 
-/*
- * Author: Mr McKay. 
- * Modified By: Hamad Mohammed
- * Creation Date: 08 11 2023
- * Description: Purpose of this is to be able to set ballx, bally, width or length for each element when using an array of balls . 
-*/
 
 import java.awt.Color;
 import java.awt.Rectangle;
