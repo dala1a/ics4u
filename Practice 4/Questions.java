@@ -11,13 +11,32 @@ public class Questions {
         return count;
     }
 
+    public static int stringLengthRecursive(String input) {
+        if (input.isEmpty()) {
+            return 0;
+        }
+        else {
+            return 1 + stringLengthRecursive(input.substring(1));
+        }
+    }
+
     // Question 2
     public static int sumIterative(int n) {
         int sum = 0;
         for (int i = 1; i <= n; i++) {
+            System.out.println(sum);
             sum += i;
         }
         return sum;
+    }
+    
+    public static int sumRecursive(int n) {
+        if (n == 0){
+            return 0;
+        }
+        else {
+            return n + sumRecursive(n - 1);
+        }
     }
 
     // Question 3
@@ -27,6 +46,16 @@ public class Questions {
             max = Math.max(max, num);
         }
         return max;
+    }
+
+    public static int findMaxRecursive(int[] a){
+        int max = a[0];
+        if (a.length == 1) {
+            return max;
+        }
+        else {
+            return Math.max(a[a.length], a[a.length - 1]);
+        }
     }
 
     // Question 4
@@ -61,15 +90,9 @@ public class Questions {
         return a;
     }
 
-    public static int stringLengthRecursive(String input) {
-        if (input.isEmpty()) {
-            return 0;
-        }
-        return 1 + stringLengthRecursive(input.substring(1));
-    }
-
     public static void main(String[] args) {
-        System.out.println(stringLengthRecursive("wahoo"));
+       int[] a = {1,2,3};
+       System.out.println(findMaxIterative(a));
 
 
     
